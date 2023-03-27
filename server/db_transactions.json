@@ -1,0 +1,16 @@
+{
+  "transactions": [
+    {
+      "name": "Akljfalkj",
+      "type": "income",
+      "amount": "500",
+      "id": 3
+    },
+    {
+      "name": "falkf",
+      "type": "income",
+      "amount": 234,
+      "id": 4
+    }
+  ]
+}
