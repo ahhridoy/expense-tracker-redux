@@ -4,10 +4,10 @@ import { fetchTransactions } from "../features/transactions/transactionsSlice";
 import List from "./List";
 
 const Lists = () => {
+  const dispatch = useDispatch();
   const { transactions, isLoading, isError } = useSelector(
     (state) => state.transactions
   );
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTransactions());

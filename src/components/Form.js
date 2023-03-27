@@ -6,8 +6,8 @@ import {
 } from "../features/transactions/transactionsSlice";
 
 const Form = () => {
-  const { editing } = useSelector((state) => state.transactions) || {};
   const dispatch = useDispatch();
+  const { editing } = useSelector((state) => state.transactions) || {};
 
   const [name, setName] = useState("");
   const [type, setType] = useState("");
