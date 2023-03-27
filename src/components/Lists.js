@@ -20,7 +20,7 @@ const Lists = () => {
     content = <h1>Data not found</h1>;
   if (!isLoading && !isError && transactions.length > 0)
     content = transactions.map((transaction) => (
-      <List key={transaction.id} transaction={transaction} />
+      <List key={transaction._id} transaction={transaction} />
     ));
 
   return (

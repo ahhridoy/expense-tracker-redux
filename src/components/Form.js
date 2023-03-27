@@ -6,37 +6,19 @@ import {
 } from "../features/transactions/transactionsSlice";
 
 const Form = () => {
+  const { editing } = useSelector((state) => state.transactions) || {};
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [amount, setAmount] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  const dispatch = useDispatch();
-  const { editing } = useSelector((state) => state.transactions) || {};
-
-  useEffect(() => {
-    console.log(editing);
-    const { _id, name, amount, type } = editing || {};
-    if (_id) {
-      setEditMode(true);
-      setName(name);
-      setType(type);
-      setAmount(amount);
-    } else {
-      setEditMode(false);
-      reset();
-    }
-  }, [editing]);
-
-  const reset = () => {
-    setName("");
-    setType("");
-    setAmount("");
-  };
-
   const handleCreate = (e) => {
     e.preventDefault();
-    dispatch(postTransaction({ name, type, amount: Number(amount) }));
+    dispatch(
+      postTransaction({ name, type, amount: Number(amount) })
+    );
     reset();
   };
 
@@ -51,10 +33,29 @@ const Form = () => {
     reset();
   };
 
+  const reset = () => {
+    setName("");
+    setType("");
+    setAmount("");
+  };
+
   const cancelEditMode = () => {
     reset();
     setEditMode(false);
   };
+
+  useEffect(() => {
+    const { _id, name, amount, type } = editing || {};
+    if (_id) {
+      setEditMode(true);
+      setName(name);
+      setType(type);
+      setAmount(amount);
+    } else {
+      setEditMode(false);
+      reset();
+    }
+  }, [dispatch, editing]);
 
   return (
     <div class="form">
