@@ -16,8 +16,8 @@ const Form = () => {
 
   useEffect(() => {
     console.log(editing);
-    const { id, name, amount, type } = editing || {};
-    if (id) {
+    const { _id, name, amount, type } = editing || {};
+    if (_id) {
       setEditMode(true);
       setName(name);
       setType(type);
@@ -43,7 +43,10 @@ const Form = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     dispatch(
-      updateTransaction({ id: editing?.id, data: { name, amount, type } })
+      updateTransaction({
+        _id: editing?._id,
+        data: { name, type, amount: Number(amount) },
+      })
     );
     reset();
   };

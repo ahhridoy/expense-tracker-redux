@@ -32,8 +32,8 @@ export const postTransaction = createAsyncThunk(
 
 export const updateTransaction = createAsyncThunk(
   "transactions/updateTransaction",
-  async ({ id, data }) => {
-    const transaction = await editTransaction(id, data);
+  async ({ _id, data }) => {
+    const transaction = await editTransaction(_id, data);
     return transaction;
   }
 );
@@ -81,8 +81,9 @@ const transactionsSlice = createSlice({
       .addCase(postTransaction.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoading = false;
-        state.transactions.push(action.payload);
+        state.transactions.push(action.meta.arg);
       })
+
       .addCase(postTransaction.rejected, (state, action) => {
         state.isError = false;
         state.isLoading = false;
@@ -96,9 +97,9 @@ const transactionsSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         const indexToUpdate = state.transactions.findIndex(
-          (t) => t.id === action.payload.id
+          (t) => t._id === action.meta.arg._id
         );
-        state.transactions[indexToUpdate] = action.payload;
+        state.transactions[indexToUpdate] = action.meta.arg.data;
       })
       .addCase(updateTransaction.rejected, (state, action) => {
         state.isError = false;
@@ -113,7 +114,7 @@ const transactionsSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.transactions = state.transactions.filter(
-          (t) => t.id !== action.meta.arg
+          (t) => t._id !== action.meta.arg
         );
       })
       .addCase(removeTransaction.rejected, (state, action) => {

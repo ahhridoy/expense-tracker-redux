@@ -6,10 +6,10 @@ import {
   editActive,
   removeTransaction,
 } from "../features/transactions/transactionsSlice";
-import { numberWithCommas } from "../utils/numberWithCommas";
+// import { numberWithCommas } from "../utils/numberWithCommas";
 
 const List = ({ transaction }) => {
-  const { id, name, type, amount } = transaction || {};
+  const { _id, name, type, amount } = transaction || {};
   const dispatch = useDispatch();
 
   const handleEdit = () => {
@@ -17,13 +17,13 @@ const List = ({ transaction }) => {
   };
 
   const handleDelete = () => {
-    dispatch(removeTransaction(id));
+    dispatch(removeTransaction(_id));
   };
   return (
     <li class={`transaction ${type === "income" ? "income" : "expense"}`}>
       <p>{name}</p>
       <div class="right">
-        <p>৳ {numberWithCommas(amount)}</p>
+        <p>৳ {amount}</p>
         <button class="link" onClick={handleEdit}>
           <img class="icon" src={editImg} alt="Edit" />
         </button>
